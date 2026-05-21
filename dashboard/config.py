@@ -2,6 +2,7 @@
 Dashboard configuration — paths, API settings, and visual theme.
 """
 
+import os
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -9,7 +10,8 @@ DATA_PATH = PROJECT_ROOT / "data" / "customer_churn_business_dataset.csv"
 MODELS_DIR = PROJECT_ROOT / "models"
 ARTIFACTS_DIR = MODELS_DIR / "artifacts"
 
-API_BASE_URL = "http://127.0.0.1:8001"
+# Use Render backend by default, allow override for local backend testing
+API_BASE_URL = os.environ.get("API_BASE_URL", "https://ai-churn-intelligence-platform.onrender.com")
 API_PREDICT_URL = f"{API_BASE_URL}/predict"
 API_HEALTH_URL = f"{API_BASE_URL}/health"
 

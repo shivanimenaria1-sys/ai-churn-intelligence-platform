@@ -16,6 +16,7 @@ Open: http://127.0.0.1:8050
 from __future__ import annotations
 
 import logging
+import os
 import sys
 from pathlib import Path
 
@@ -28,7 +29,7 @@ import dash
 import dash_bootstrap_components as dbc
 
 from dashboard.callbacks import register_callbacks
-from dashboard.config import DASHBOARD_HOST, DASHBOARD_PORT
+from dashboard.config import DASHBOARD_HOST, DASHBOARD_PORT, API_BASE_URL
 from dashboard.data_service import preload_dashboard_data
 from dashboard.layout import build_layout
 
@@ -58,11 +59,14 @@ server = app.server  # for gunicorn / production WSGI
 
 def main() -> None:
     """Start the Dash development server."""
+    port = int(os.environ.get("PORT", DASHBOARD_PORT))
+    host = "0.0.0.0"
+    
     logger.info("Preloading data before starting server…")
     preload_dashboard_data(use_api=False)
-    logger.info("Starting ChurnGuard dashboard at http://%s:%s", DASHBOARD_HOST, DASHBOARD_PORT)
-    logger.info("Ensure FastAPI is running on port 8001 for live API scoring in Customer Deep Dive")
-    app.run(host=DASHBOARD_HOST, port=DASHBOARD_PORT, debug=False)
+    logger.info("Starting ChurnGuard dashboard at http://%s:%s", host, port)
+    logger.info("Using backend API: %s", API_BASE_URL)
+    app.run(host=host, port=port, debug=False)
 
 
 if __name__ == "__main__":
