@@ -66,6 +66,9 @@ models/**/*.onnx
 !models/.gitkeep
 !models/**/.gitkeep
 !models/README.md
+!models/churn_xgboost_model.joblib
+!models/artifacts/churn_preprocessor.joblib
+!models/artifacts/feature_names.joblib
 
 # --- Logs & runtime ---
 *.log
