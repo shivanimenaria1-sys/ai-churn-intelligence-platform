@@ -50,7 +50,7 @@ coverage.xml
 secrets/
 
 # --- Data (keep structure, exclude large raw files) ---
-data/*.csv
+#data/*.csv
 data/*.parquet
 data/*.xlsx
 data/*.feather
